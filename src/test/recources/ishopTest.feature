@@ -2,7 +2,7 @@ Feature: This test are created for i-shop testing
 
   Scenario Outline:: Adding items to a cart and checking TOTAL price
     When we select Dress item in menu
-    Then we select <color>
+    Then we click on <color>
     And we select item with price more then <lowPrice>USD less then <highPrice>USD
     And we continue shopping
     And we search <item> in the search box
