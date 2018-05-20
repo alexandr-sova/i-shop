@@ -30,15 +30,12 @@ public class HomePage {
         this.baseFunc = baseFunc;
     }
 
-//    private List<WebElement> getAllItems() {
-//        return baseFunc.getElements(ITEM);
-//    }
-
     private List<Color> setColor() {
 
         List<Color> resultList = new ArrayList<Color>();
 
         Integer rowcount = baseFunc.getElements(COLORS).size();
+
         for (int i = 0; i < rowcount; i++) {
 
             Color color = new Color();
@@ -92,6 +89,7 @@ public class HomePage {
     private String getColor(String color) {
 
         List<Color> colorList = setColor();
+
         int i;
         for (i = 0; i < colorList.size(); i++) {
             String colorInList = colorList.get(i).getName();
@@ -117,6 +115,7 @@ public class HomePage {
     public void selectDressByPrice(Double lowPrice, Double highPrice) {
 
         Integer rowcount = baseFunc.getElements(ITEM).size();
+
         int i;
         for (i = 0; i < rowcount; i++) {
 
@@ -128,7 +127,12 @@ public class HomePage {
                 break;
             }
         }
-        LOGGER.info("One Dress in price range between $"+ lowPrice + "USD and $" + highPrice + "USD have been selected.");
+        if (i == rowcount) {
+            LOGGER.info("There isn't any item it the list.\n");
+        }
+        else {
+            LOGGER.info("One Dress in price range between $"+ lowPrice + "USD and $" + highPrice + "USD have been selected.");
+        }
         baseFunc.addToBascket().moveToElement(baseFunc.getElements(ITEM).get(i)).build().perform();
         baseFunc.getElement(ADDTOCART).click();
         baseFunc.getWait().until(ExpectedConditions.visibilityOfElementLocated(By.id("layer_cart")));
