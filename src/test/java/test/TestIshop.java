@@ -5,14 +5,16 @@ import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import pages.BaseFunc;
-import pages.web.HomePage;
-import pages.web.ItemPage;
-import pages.web.OrderPage;
+import pages.HomePage;
+import pages.ItemPage;
+import pages.OrderPage;
 
 public class TestIshop {
     private BaseFunc baseFunc = new BaseFunc();
     private final static String HOMEPAGE = "http://automationpractice.com/index.php";
+    private final static By DRESSES = By.xpath(".//*[@id='block_top_menu']/ul/li/a[.= 'Dresses']");
     public static final Logger LOGGER = LogManager.getLogger(TestIshop.class);
     HomePage homePage = new HomePage(baseFunc);
     ItemPage itemPage = new ItemPage(baseFunc);
@@ -20,7 +22,7 @@ public class TestIshop {
 
 
     @Before
-    public void openHomepage() {
+    public void openHomePage() {
         baseFunc.goToUrl(HOMEPAGE);
     }
 
@@ -35,23 +37,40 @@ public class TestIshop {
     @Test
     public void getItemsToCart() {
 
-        homePage.selectYellowDresses();
+        homePage.clickOnMenuDresses();
+        homePage.setColorFilter("Yellow");
         homePage.selectDressByPrice(25.00, 30.00);
         homePage.continueShopping();
 
         homePage.searchItems("t-shirt");
-        homePage.selectItem();
-        homePage.goToSeectedItemPage();
+        homePage.goToSelectedItemPage();
         itemPage.addToCartAndShopping();
         homePage.goToCartPage();
 
         orderPage.verifyCalculateCartsValues();
         orderPage.increasItemValue();
         orderPage.verifyCalculateCartsValues();
-        orderPage.decreaseItemVlue();
+        orderPage.decreasItemValue();
         orderPage.verifyCalculateCartsValues();
 
+//        String www = "";
+    }
+
+    @Test
+    public void getColor() {
+//        homePage.getMenuDresses();
+//        homePage.clickOnMenuDresses();
+//        homePage.setColorFilter("Yellow");
+//        homePage.selectDressByPrice(25.00, 30.00);
+//        homePage.continueShopping();
+        homePage.searchItems("t-shirt");
+        homePage.goToSelectedItemPage();
+        itemPage.addToCartAndShopping();
+        homePage.goToCartPage();
+
+
         String www = "";
+
     }
 
     @After

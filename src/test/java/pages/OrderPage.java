@@ -1,4 +1,4 @@
-package pages.web;
+package pages;
 
 import model.Items;
 import org.apache.logging.log4j.LogManager;
@@ -6,11 +6,8 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pages.BaseFunc;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class OrderPage {
@@ -26,12 +23,12 @@ public class OrderPage {
     private final static By QTY = By.xpath(".//input[@class='cart_quantity_input form-control grey']");
     private final static Logger LOGGER = LogManager.getLogger(OrderPage.class);
 
-
     public OrderPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
     }
 
     public List<WebElement> getAllTableRows() {
+
         return baseFunc.getElements(CARTTABLE);
     }
 
@@ -59,7 +56,7 @@ public class OrderPage {
     public void verifyCalculateCartsValues() {
 
         List<Items> tableItems = getItemsList();
-        LOGGER.info("Items List has been successfully created for the calculations verifying.\n");
+        LOGGER.info("\nItems List has been successfully created for the calculations verifying.\n");
 
         Double totalProduct = 0.0;
         Double totalNoTax = 0.0;
@@ -100,10 +97,10 @@ public class OrderPage {
         baseFunc.getElement(UPVALUE).click();
         baseFunc.getWait().until(ExpectedConditions.attributeToBe(baseFunc.getElement(QTY),"value", Integer.toString(qtyOriginal+1)));
         baseFunc.refreshPage("Order");
-        LOGGER.info("Item has been increased by 1");
+        LOGGER.info("Item has been increased by 1.\n");
     }
 
-    public void decreaseItemVlue() {
+    public void decreasItemValue() {
 
         Integer qtyOriginal = Integer.parseInt(baseFunc.getElements(QTY).get(1).getAttribute("value"));
 
@@ -112,7 +109,7 @@ public class OrderPage {
             baseFunc.getWait().until(ExpectedConditions.attributeToBe(baseFunc.getElements(QTY).get(1),
                     "value", Integer.toString(qtyOriginal - 1)));
             baseFunc.refreshPage("Order");
-            LOGGER.info("Item has been decreased by 1");
+            LOGGER.info("Item has been decreased by 1.\n");
         }
     }
 
