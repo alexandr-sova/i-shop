@@ -22,7 +22,7 @@ public class IshopTestStepDef {
         homePage.clickOnMenuDresses();
     }
 
-    @Then("we select (.*) color")
+    @Then("we select (.*)")
     public void yellowDresses(String color) {
         homePage.setColorFilter(color);
     }
@@ -37,7 +37,7 @@ public class IshopTestStepDef {
         homePage.continueShopping();
     }
 
-    @Then("we search item (.*) in the search box")
+    @Then("we search (.*) in the search box")
     public void getIitemByName(String itemName) {
         homePage.searchItems(itemName);
     }
