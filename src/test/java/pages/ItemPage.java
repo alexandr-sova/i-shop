@@ -20,7 +20,7 @@ public class ItemPage {
         baseFunc.getElement(ADDTOCART).click();
         baseFunc.getWait().until(ExpectedConditions.visibilityOfElementLocated(By.id("layer_cart")));
         baseFunc.getElement(SHOPPING).click();
-        LOGGER.info("Items has been successfully added to the Basket.\n");
+        LOGGER.info("Items has been successfully added to the Basket.\n\n");
 
     }
 }

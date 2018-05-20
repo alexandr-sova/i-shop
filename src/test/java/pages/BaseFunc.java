@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class BaseFunc {
-    public static final Logger LOGGER = LogManager.getLogger(BaseFunc.class);
+    private static final Logger LOGGER = LogManager.getLogger(BaseFunc.class);
     public final static String myStore = " - My Store";
 
     WebDriver driver;

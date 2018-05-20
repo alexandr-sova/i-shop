@@ -17,13 +17,7 @@ public class IshopTestStepDef {
     private ItemPage itemPage = new ItemPage(baseFunc);
     private OrderPage orderPage = new OrderPage(baseFunc);
 
-
-    @When("we are open the i-shop url (.*)")
-    public void openIsop(String url) {
-        baseFunc.goToUrl(url);
-    }
-
-    @Then("we select Dress item in menu")
+    @When("we select Dress item in menu")
     public void menuDress () {
         homePage.clickOnMenuDresses();
     }

@@ -1,9 +1,8 @@
 Feature: This test are created for i-shop testing
 
-  Scenario: Dress selection
-    When we are open the i-shop url http://automationpractice.com/index.php
-    Then we select Dress item in menu
-    And we select Yellow color
+  Scenario: Adding items to a cart and checking TOTAL price
+    When we select Dress item in menu
+    Then we select Yellow color
     And we select item with price more then 25.00USD less then 30.00USD
     And we continue shopping
     And we search item t-shirt in the search box

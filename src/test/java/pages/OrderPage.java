@@ -27,12 +27,12 @@ public class OrderPage {
         this.baseFunc = baseFunc;
     }
 
-    public List<WebElement> getAllTableRows() {
+    private List<WebElement> getAllTableRows() {
 
         return baseFunc.getElements(CARTTABLE);
     }
 
-    public List<Items> getItemsList() {
+    private List<Items> getItemsList() {
 
         List<Items> resultList = new ArrayList<Items>();
         Integer rowsCount = baseFunc.getElements(CARTTABLE).size();
@@ -56,7 +56,7 @@ public class OrderPage {
     public void verifyCalculateCartsValues() {
 
         List<Items> tableItems = getItemsList();
-        LOGGER.info("\nItems List has been successfully created for the calculations verifying.\n");
+        LOGGER.info("Items List has been successfully created for the calculations verifying.\n");
 
         Double totalProduct = 0.0;
         Double totalNoTax = 0.0;
@@ -97,7 +97,7 @@ public class OrderPage {
         baseFunc.getElement(UPVALUE).click();
         baseFunc.getWait().until(ExpectedConditions.attributeToBe(baseFunc.getElement(QTY),"value", Integer.toString(qtyOriginal+1)));
         baseFunc.refreshPage("Order");
-        LOGGER.info("Item has been increased by 1.\n");
+        LOGGER.info("Item has been increased by 1.\n\n");
     }
 
     public void decreasItemValue() {
@@ -109,7 +109,7 @@ public class OrderPage {
             baseFunc.getWait().until(ExpectedConditions.attributeToBe(baseFunc.getElements(QTY).get(1),
                     "value", Integer.toString(qtyOriginal - 1)));
             baseFunc.refreshPage("Order");
-            LOGGER.info("Item has been decreased by 1.\n");
+            LOGGER.info("Item has been decreased by 1.\n\n");
         }
     }
 

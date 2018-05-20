@@ -15,7 +15,6 @@ import static org.junit.Assert.assertFalse;
 public class HomePage {
     BaseFunc baseFunc;
     private final static By MENUDRESSES = By.xpath(".//*[@id='block_top_menu']/ul/li/a[.= 'Dresses']");
-    private final static By YELLOW = By.id("layered_id_attribute_group_16");
     private final static By COLORS = By.xpath(".//ul[@id='ul_layered_id_attribute_group_3']/li");
     private final static By ITEM = By.xpath(".//div[@class = 'product-container']");
     private final static By PRICE = By.xpath(".//span[@class = 'price product-price']");
@@ -24,15 +23,16 @@ public class HomePage {
     private final static By SEARCH = By.id("search_query_top");
     private final static By CART = By.xpath(".//b[.= 'Cart']");
     private final static By SEARCHRESULT = By.xpath(".//*[@id='center_column']/h1");
+    private final static By SEARCHEDITEM = By.xpath(".//span[@class='heading-counter']");
     private final static Logger LOGGER = LogManager.getLogger(HomePage.class);
 
     public HomePage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
     }
 
-    private List<WebElement> getAllItems() {
-        return baseFunc.getElements(ITEM);
-    }
+//    private List<WebElement> getAllItems() {
+//        return baseFunc.getElements(ITEM);
+//    }
 
     private List<Color> setColor() {
 
@@ -47,11 +47,9 @@ public class HomePage {
 
             color.setName(element.getText().split(" ", 2)[0]);
             color.setLink(element.findElement(By.xpath(".//label/a")).getAttribute("href"));
-            color.setElement(element);
 
             resultList.add(color);
         }
-        String qqq = "";
         return resultList;
     }
 
@@ -67,16 +65,14 @@ public class HomePage {
         return new OrderPage(baseFunc);
     }
 
-    public List<WebElement> getMenuDresses() {
+    public void getMenuDresses() {
 
         assertFalse("The menu item 'Dersses' doesn't exist", baseFunc.getElements(MENUDRESSES).isEmpty());
-        return baseFunc.getElements(MENUDRESSES);
     }
 
-    public WebElement getSearch() {
+    public void getSearch() {
 
         assertFalse("The Search bar doesn't exist", !baseFunc.getElement(SEARCH).isDisplayed());
-        return baseFunc.getElement(SEARCH);
     }
 
     public WebElement getCart() {
@@ -90,6 +86,7 @@ public class HomePage {
         baseFunc.getElement(MENUDRESSES).click();
         Assert.assertEquals("There isn't Dresses page!",
                             "Dresses - My Store", baseFunc.requestTitle());
+        LOGGER.info("The Dresses page has been opened.\n");
     }
 
     private String getColor(String color) {
@@ -100,8 +97,10 @@ public class HomePage {
             String colorInList = colorList.get(i).getName();
             if (colorInList.matches(color)) {
                 break;
-// else !!!!!!!!!!!!
             }
+        }
+        if (i == colorList.size()) {
+            LOGGER.info("The " + color + " color doesn't exist it the list.\n");
         }
         return colorList.get(i).getLink();
     }
@@ -109,6 +108,7 @@ public class HomePage {
     public void setColorFilter(String color) {
 
         setColor();
+        LOGGER.info("The " + color + " color has been selected.\n");
         baseFunc.goToUrl(getColor(color));
         LOGGER.info("Item(s) in " + color + " color has(have) been filtered.\n");
         baseFunc.getWait().until(ExpectedConditions.titleIs("Dresses > Color "+ color  + baseFunc.myStore));
@@ -140,7 +140,7 @@ public class HomePage {
         baseFunc.getElement(SHOPPING).click();
     }
 
-    public WebElement searchItems(String itemName) {
+    public void searchItems(String itemName) {
 
         baseFunc.getElement(SEARCH).clear();
         baseFunc.getElement(SEARCH).sendKeys(itemName);
@@ -148,12 +148,11 @@ public class HomePage {
         baseFunc.getWait().until(ExpectedConditions.titleIs("Search" + baseFunc.myStore));
         baseFunc.getWait().until(ExpectedConditions.visibilityOfElementLocated(SEARCHRESULT));
         selectItem();
-        return baseFunc.getElement(ITEM);
     }
 
-    public WebElement selectItem() {
+    private WebElement selectItem() {
 
-        Assert.assertTrue("There aren't any searched Items!", !getAllItems().isEmpty());
+        Assert.assertTrue("There aren't any searched Items!", 0 < Integer.parseInt(baseFunc.getElement(SEARCHEDITEM).getText().split(" ", 2)[0]));
         return baseFunc.getElement(ITEM);
     }
 }
