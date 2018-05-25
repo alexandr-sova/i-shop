@@ -134,6 +134,5 @@ public class OrderPage {
         }
         baseFunc.getElements(chnangType).get(i).click();
     }
-
 }
 

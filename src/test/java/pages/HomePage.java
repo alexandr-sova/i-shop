@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import model.Menu;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import static org.junit.Assert.assertFalse;
 
 public class HomePage {

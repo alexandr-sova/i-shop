@@ -94,7 +94,7 @@ public class IshopStepDef {
 
     @After
     public void finishShopping() {
-//        baseFunc.closeBrowser();
+        baseFunc.closeBrowser();
     }
 }
 
