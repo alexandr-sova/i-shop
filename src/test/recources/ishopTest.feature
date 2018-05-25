@@ -1,21 +1,19 @@
 Feature: This test are created for i-shop testing
 
-  Scenario Outline:: Adding items to a cart and checking TOTAL price
-    When we select Dress item in menu
-    Then we click on <color>
-    And we select item with price more then <lowPrice>USD less then <highPrice>USD
-    And we continue shopping
-    And we search <item> in the search box
-    And we go to searched item page
-    And we add item to cart
-    And we open Cart
-    And we check TOTAL price
-    And we increase the quantity for an item
-    And we check TOTAL price
-    And we decrease the quantity for an item
-    And we check TOTAL price
-
-    Examples:
-    | color | lowPrice | highPrice |   item    |
-    | Yellow|   25.00  |   30.00   |  t-shirt  |
+  Scenario: Adding items to a cart and checking TOTAL prices
+    Given open page http://automationpractice.com
+     When we click on "DRESSES" -> "SUMMER_DRESSES" in menu
+     Then we select items in Yellow color
+      And filtered items in range more 25.00USD less 30.00USD
+      And add 1 st/d filtered item to cart
+      And continue shopping
+     When we search t-shirt in the search box
+     Then we go to 1 st/d searched item page
+      And add item to cart
+      And go to Checkout
+      And we check TOTAL price
+     When we increase the quantity for the 1 st/d item
+     Then we check TOTAL price
+     When we decrease the quantity for the 1 st/d item
+     Then we check TOTAL price
 

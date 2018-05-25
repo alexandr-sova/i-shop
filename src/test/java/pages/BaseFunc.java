@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class BaseFunc {
     private static final Logger LOGGER = LogManager.getLogger(BaseFunc.class);
-    public final static String myStore = " - My Store";
+    public final static String MY_STORE = " - My Store";
 
     WebDriver driver;
 
@@ -38,7 +38,7 @@ public class BaseFunc {
 
     public List<WebElement> getElements(By locator) {
 
-        assertFalse(" List is empty", driver.findElements(locator).isEmpty());
+        assertFalse(" List is empty.", driver.findElements(locator).isEmpty());
         return driver.findElements(locator);
     }
 
@@ -50,23 +50,23 @@ public class BaseFunc {
 
     public WebDriverWait getWait () {
 
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        return wait;
+        return new WebDriverWait(driver, 10);
     }
 
     public void closeBrowser() {
+
         driver.quit();
     }
 
-    public Actions addToBascket() {
+    public Actions actions() {
 
-        Actions action = new Actions(driver);
-        return action;
+        return new Actions(driver);
     }
 
     public void refreshPage(String page) {
 
         driver.navigate().refresh();
-        getWait().until(ExpectedConditions.titleIs(page + myStore));
+        getWait().until(ExpectedConditions.titleIs(page + MY_STORE));
     }
+
 }

@@ -1,10 +1,18 @@
 package model;
 
 public class Items {
+    private String id;
     private String name;
     private Double price;
     private Integer qty;
-    private Double total;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -28,13 +36,5 @@ public class Items {
 
     public void setQty(Integer qty) {
         this.qty = qty;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
     }
 }
