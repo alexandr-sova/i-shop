@@ -1,6 +1,5 @@
 package pages;
 
-import cucumber.api.java.sl.In;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -11,8 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.math.BigDecimal;
 import java.util.List;
 import model.Menu;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class DressesPage {
@@ -72,6 +69,9 @@ public class DressesPage {
 
         Assert.assertTrue("There aren't any searched Items!",
                 Integer.parseInt(baseFunc.getElement(SEARCHED_ITEM).getText().split(" ", 2)[0]) > 0);
+        Assert.assertTrue(" Number(" + (item+1) +")" + "of item is out of range." + " Total items:" + baseFunc.getElements(SEARCHED_ITEM).size(),
+                item <= baseFunc.getElements(SEARCHED_ITEM).size());
+
         return baseFunc.getElements(ITEM).get(item);
     }
 
@@ -102,6 +102,11 @@ public class DressesPage {
         Integer sliderWidth = baseFunc.getElement(SLIDER).getSize().getWidth();
         Double minItemPrice = Double.parseDouble(baseFunc.getElement(SLIDER_PRICE_RANGE).getText().split(" ", 3)[0].substring(1));
         Double maxItemPrice = Double.parseDouble(baseFunc.getElement(SLIDER_PRICE_RANGE).getText().split(" ", 3)[2].substring(1));
+
+        Assert.assertTrue("Requested range is out of boundaries. " + "\n" +
+                                   "Low price is: " + lowPrice +" and should be <= High price " + highPrice + "\n" ,
+                          lowPrice <= highPrice);
+
         Double xOffsetMin = round((lowPrice - minItemPrice) * (sliderWidth / (maxItemPrice - minItemPrice)),0);
         Double xOffsetMax = round(sliderWidth - (highPrice - minItemPrice) * (sliderWidth / (maxItemPrice - minItemPrice)),0);
 
@@ -149,12 +154,14 @@ public class DressesPage {
                                 && itemType.contains(typeOfItems));
             }
         }
-        LOGGER.info("Items in price range $"+ lowPrice + "USD and $" + highPrice + "USD have been selected.");
+        LOGGER.info("Items in price range $"+ lowPrice + "USD and $" + highPrice + "USD have been selected.\n");
     }
 
     public void addItemToCart(int item) throws InterruptedException {
 
         assertFalse(" List is empty.", baseFunc.getElements(ITEM).isEmpty());
+        Assert.assertTrue(" Number(" + (item+1) +")" + "of item is out of range." + " Total items:" + baseFunc.getElements(ITEM).size(),
+                          item <= baseFunc.getElements(ITEM).size());
 
         baseFunc.actions().moveToElement(baseFunc.getElements(ITEM).get(item)).build().perform();
         baseFunc.getElements(ADD_TO_CART).get(item).click();
