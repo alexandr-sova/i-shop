@@ -160,8 +160,9 @@ public class DressesPage {
     public void addItemToCart(int item) throws InterruptedException {
 
         assertFalse(" List is empty.", baseFunc.getElements(ITEM).isEmpty());
-        Assert.assertTrue(" Number(" + (item+1) +")" + "of item is out of range." + " Total items:" + baseFunc.getElements(ITEM).size(),
-                          item <= baseFunc.getElements(ITEM).size());
+        Integer totalItems = baseFunc.getElements(ITEM).size();
+        Assert.assertTrue(" Number(" + (item+1) +")" + "of item is out of range." + " Total items:" + totalItems,
+                          item <= totalItems);
 
         baseFunc.actions().moveToElement(baseFunc.getElements(ITEM).get(item)).build().perform();
         baseFunc.getElements(ADD_TO_CART).get(item).click();
